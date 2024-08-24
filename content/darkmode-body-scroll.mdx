@@ -1,0 +1,58 @@
+---
+title: "Hide underlaying HTML background on inertia bounce"
+description: "How to prevent HTML background color from showing behind content when scrolling with inertia"
+date: "2024-08-23"
+tags: ["ux", "scroll", "css", "hacks"]
+---
+
+Browsers default background is white, so when we change our `<body>` or `<main>` background color, when scrolling and you hit the top or bottom of a page, the intertia bounce feature in modern OS' can lead to showing the `<html>` background color behind these elements.
+
+This is easily circumvented by setting the background color of the `<html>` to the same color as the our element.
+
+```css
+html {
+  background-color: ruby;
+}
+// Ensure the body has the same background color
+body {
+  background-color: ruby;
+}
+```
+
+But in scenario's where matching the whole website's `<html>` background color isn't possible, we can use a simple trick;
+
+<img src="/bounce-cropped.gif" className="border border-gray-800 max-w-56" />
+
+---
+
+### ::before/::after pseudo-element
+
+Let's imagine a scenario where we have a darkmode website, but we can't change the `<html>`'s background color. We can use a `::before` or `::after` pseudo-element positioned just right.
+
+```html
+<html>
+  <body>
+    <main>
+      <!-- content -->
+    </main>
+  </body>
+</html>
+```
+
+```css
+main:before {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  background-color: black;
+  z-index: -1;
+
+  // You can play with these values
+  top: -30vh;
+  height: 50vh;
+}
+```
+
+This adds a pseudo-element which will sit behind our element, full width and offset above the top edge!
