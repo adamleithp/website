@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils";
 import { P } from "@/components/ui/typography";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+import { Code2Icon, Linkedin } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -22,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body
         className={cn(
           "min-h-screen bg-black font-sans antialiased",
@@ -30,13 +32,36 @@ export default function RootLayout({
         )}
       >
         <header className="container py-4 text-white ">
-          <nav>
-            <ul className="flex gap-4">
+          <nav className="flex justify-between -mx-3">
+            <ul className="flex gap-1">
               <li>
-                <Link href="/">home</Link>
+                <Button asChild variant={"ghost"} size="sm">
+                  <Link href="/">home</Link>
+                </Button>
               </li>
               <li>
-                <Link href="/blog">blog</Link>
+                <Button asChild variant={"ghost"} size="sm">
+                  <Link href="/blog">blog</Link>
+                </Button>
+              </li>
+            </ul>
+            <ul className="flex gap-1">
+              <li>
+                <Button asChild variant={"ghost"} size="icon-sm">
+                  <Link href="https://github.com/adamleithp" target="_blank">
+                    <Code2Icon size={16} strokeWidth={"1"} />
+                  </Link>
+                </Button>
+              </li>
+              <li>
+                <Button asChild variant={"ghost"} size="icon-sm">
+                  <Link
+                    href="https://www.linkedin.com/in/adamleithp/"
+                    target="_blank"
+                  >
+                    <Linkedin size={16} strokeWidth={"1"} />
+                  </Link>
+                </Button>
               </li>
             </ul>
           </nav>

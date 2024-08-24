@@ -1,3 +1,4 @@
+import { BlogPostItem } from "@/components/sections/blog-post-item";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Bold, H1, H2, H3, P } from "@/components/ui/typography";
@@ -10,9 +11,7 @@ export default function BlogPage() {
   return (
     <>
       <section className="container py-32 space-y-8">
-        <H1 className="text-gray-200 font-bold !text-3xl">
-          Hi I&apos;m Adam 👋
-        </H1>
+        <H1 className="text-gray-200">Hi I&apos;m Adam 👋</H1>
         <P className="text-gray-200">
           I&apos;m a{" "}
           <span className="font-bold text-white">frontend developer</span>,{" "}
@@ -25,21 +24,14 @@ export default function BlogPage() {
         </P>
       </section>
 
-      <Separator className="-mx-4" />
+      <Separator />
 
       <section className="container text-white py-32 space-y-8">
-        <H2 className="">Blog posts</H2>
+        <H2 className="font-extrabold">Blog posts</H2>
         <ul className="space-y-8">
           {posts.map((post) => (
             <li key={post.slug}>
-              <Link href={`/blog/${post.slug}`} className=" space-y-3 group">
-                <H3 className="group-hover:underline">{post.title}</H3>
-                <div className="flex gap-2 flex-wrap">
-                  {post.tags?.map((tag) => (
-                    <Badge key={tag}>{tag}</Badge>
-                  ))}
-                </div>
-              </Link>
+              <BlogPostItem post={post} />
             </li>
           ))}
         </ul>
