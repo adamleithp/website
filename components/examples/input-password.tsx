@@ -8,19 +8,20 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
+}
 
 const InputPassword = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, id, ...props }, ref) => {
+  ({ className, type, id, label, ...props }, ref) => {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
       <label htmlFor={id} className="block dark space-y-1">
-        <Label htmlFor={id}>Password</Label>
+        {label && <Label>{label}</Label>}
         <div className="relative">
           <Input
             type={showPassword ? "text" : "password"}
-            defaultValue={"some-super-password"}
             id={id}
             className={cn("pr-10", className)}
             ref={ref}
