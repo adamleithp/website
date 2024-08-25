@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { Code2Icon, Linkedin } from "lucide-react";
 import Link from "next/link";
+import { NavLink } from "@/components/sections/nav-link";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -33,14 +34,10 @@ export default function RootLayout({
           <nav className="flex justify-between -mx-3">
             <ul className="flex gap-1">
               <li>
-                <Button asChild variant={"ghost"} size="sm">
-                  <Link href="/">home</Link>
-                </Button>
+                <NavLink href="/">home</NavLink>
               </li>
               <li>
-                <Button asChild variant={"ghost"} size="sm">
-                  <Link href="/blog">blog</Link>
-                </Button>
+                <NavLink href="/blog">blog</NavLink>
               </li>
             </ul>
             <ul className="flex gap-1">
