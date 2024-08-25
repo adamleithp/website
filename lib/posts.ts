@@ -1,4 +1,3 @@
-// lib/posts.ts
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -34,19 +33,13 @@ export function getAllPosts(): PostMeta[] {
 }
 
 export function getPostBySlug(slug: string): PostMeta {
-  // const fullPath = path.join(postsDirectory, `${slug}.mdx`);
-  // const fileContents = fs.readFileSync(fullPath, "utf8");
-
-  // const { data, content } = matter(fileContents);
-
-  // return {
-  //   slug,
-  //   content,
-  //   title: data.title,
-  //   date: data.date,
-  //   tags: data.tags,
-  // } as PostMeta;
   const posts = getAllPosts();
 
   return posts.find((post) => post.slug === slug) as PostMeta;
 }
+
+export const readCode = (filePath: string) => {
+  const fullPath = path.join(process.cwd(), filePath);
+  const fileContents = fs.readFileSync(fullPath, "utf8");
+  return fileContents;
+};

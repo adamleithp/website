@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
-import "./globals.css";
 import { Inter as FontSans } from "next/font/google";
-
-import { cn } from "@/lib/utils";
-import { P } from "@/components/ui/typography";
-import { Separator } from "@/components/ui/separator";
-import Link from "next/link";
-import { Code2Icon, Linkedin } from "lucide-react";
+import "./globals.css";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
+import { Code2Icon, Linkedin } from "lucide-react";
+import Link from "next/link";
 
 const fontSans = FontSans({
   subsets: ["latin"],

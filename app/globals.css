@@ -1,4 +1,4 @@
-@import "prismjs/themes/prism-tomorrow.css";
+@import "./prism-tomorrow.css";
 
 @tailwind base;
 @tailwind components;

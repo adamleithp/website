@@ -6,6 +6,8 @@ import { PostMeta, getAllPosts, getPostBySlug } from "@/lib/posts";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypePrism from "rehype-prism-plus";
+import { ElementShowcase } from "@/components/sections/element-showcase";
+import FileCodeBlock from "@/components/ui/file-code-block";
 
 interface PostPageProps {
   params: {
@@ -35,13 +37,19 @@ export default function PostPage({ params }: PostPageProps) {
                 // remarkA11yEmoji,
                 // // generates a table of contents based on headings
                 // remarkToc,
+                require("./remarkCodeImport").default,
               ],
               // These work together to add IDs and linkify headings
               // rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
               rehypePlugins: [rehypePrism],
             },
           }}
-          components={{ ...mdxComponents, InputPassword }}
+          components={{
+            ...mdxComponents,
+            FileCodeBlock,
+            ElementShowcase,
+            InputPassword,
+          }}
         />
       </div>
     </div>
