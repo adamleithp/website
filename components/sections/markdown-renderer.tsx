@@ -5,6 +5,8 @@ import { mdxComponents } from "./markdown-components";
 import FileCodeBlock from "../ui/file-code-block";
 import { ElementShowcase } from "./element-showcase";
 import { InputPassword } from "../examples/input-password";
+import { TextSkeleton } from "../examples/text-skeleton";
+import { TextSkeletonExample } from "../examples/text-skeleton-example";
 
 export function MarkdownRenderer({ content }: { content: string }) {
   return (
@@ -27,6 +29,8 @@ export function MarkdownRenderer({ content }: { content: string }) {
         ...mdxComponents,
         FileCodeBlock,
         ElementShowcase,
+        TextSkeleton,
+        TextSkeletonExample,
         InputPassword,
       }}
     />

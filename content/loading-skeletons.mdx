@@ -1,0 +1,118 @@
+---
+title: "Easy text loading skeletons"
+description: "How to create loading skeletons for your website that match your text perfectly"
+date: "2024-08-26"
+tags: ["ux", "loading", "layout-shift"]
+---
+
+<ElementShowcase className="max-w-64">
+  <TextSkeletonExample />
+</ElementShowcase>
+
+Async loading content can be seemingly easy to implement, but can be a pain to get right.
+
+Traditonally we'd make a component like `<LoadingSkeleton/>` with some props, like `height` or `width`, and then render a bunch of these elements in place of our content. But this can be a pain to maintain and doesn't always match our layout or text perfectly.
+
+For layouts that works well, but for text, we can do better.
+
+```tsx
+<TextSkeleton>
+  <h1>Some title</h1>
+</TextSkeleton>
+```
+
+```tsx filepath="components/examples/text-skeleton.tsx"
+
+```
+
+Here's our Tailwind classes in pure CSS;
+
+```css
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+.text-skeleton {
+  background-color: rgb(229 231 235, 1);
+  border-radius: 5px;
+  height: fit-content;
+  width: fit-content;
+  user-select: none;
+  color: transparent;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+// Everything inside the skeleton should be transparent
+.text-skeleton * {
+  color: transparent !important;
+  opacity: 0 !important;
+  user-select: none !important;
+  pointer-events: none !important;
+}
+```
+
+Now we simply wrap each individual text elements in `<TextSkeleton>` and we're done!
+
+Here's an example component with tanstack query hook, a title and some paragraphs;
+
+```tsx
+export function SomeComponent(): JSX.Element {
+  const { data, isLoading } = useGetIsAuthed();
+
+
+  return (
+    <div className="space-y-2">
+     {isLoading ? (
+        <TextSkeleton>
+          <h1>Some header</h1>
+        </TextSkeleton>
+
+        <TextSkeleton>
+          <p>Some paragraph</p>
+        </TextSkeleton>
+     ) : (
+       <h1>Some header</h1>
+       <p>Some paragraph</p>
+     )}
+    </div>
+  );
+}
+```
+
+Keeping the same text inside the skeleton element means the layout will match perfectly.
+
+---
+
+Sure this adds some extra markup, and keeping complex layouts in sync can be a pain, but for simple text loading skeletons, this is a great solution.
+
+If you wanted to take a bit further, and you project has a strict style guide/ ui component library, you can add a `loading` prop to your components and conditionally render the skeleton.
+
+```tsx
+export function SomeComponent(): JSX.Element {
+  const { data, isLoading } = useGetIsAuthed();
+
+  return (
+    <div className="space-y-2">
+      <H1 loading={isLoading}>Some header</H1>
+      <P loading={isLoading}>Some paragraph</P>
+    </div>
+  );
+}
+```
+
+and implement in your components like so;
+
+```tsx
+export const H1 = ({
+  children,
+  loading,
+}: PropsWithChildren<{ loading: boolean }>) => {
+  return loading ? (
+    <TextSkeleton>
+      <h1>{children}</h1>
+    </TextSkeleton>
+  ) : (
+    <h1>{children}</h1>
+  );
+};
+```
