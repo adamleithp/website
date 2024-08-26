@@ -1,0 +1,69 @@
+---
+title: "Import files into MDX and render as code blocks (with code highlighting)"
+description: "Showcaseing your code snippets in Nextjs + MDX by importing the raw file"
+date: "2024-08-23"
+tags: ["mdx", "nextjs", "dx", "blog", "import", "code"]
+---
+
+I have a lot of code snippets in my blog posts. At first I was copying the code into the markdown code blocks from the file itself- obviously this becomes tedious as the code I'm showcasing can become outdated quite quickly.
+
+**Is there a way to import files into MDX files and render them as code blocks? Yes.**
+
+```markdown filepath="components/examples/markdown-import-file.txt"
+
+```
+
+> Above is actually a `.txt` file imported into a code block, I couldn't figure out how to show the triple backticks without it being rendered as a code block. 😅
+
+We will assume you have `nextjs` and `mdx` set up in your project. If not, you can follow the [official documentation](https://nextjs.org/docs/basic-features/pages) to set up a new project.
+`1
+
+## Install dependencies
+
+```bash
+npm install path fs next-mdx-remote remark-gfm rehype-prism-plus unified unist-util-visit unist @types/unist @types/mdast
+```
+
+> Yes, you're about to add a metric ton of dependencies to your project. 😅
+
+Create new file somewhere in your project called `markdown-renderer.tsx`. I put mine on the root in a folder called `/plugins/`
+
+```ts filepath="plugins/remarkCodeImport.ts"
+
+```
+
+Make a new react compononent that will render the code block.
+
+```tsx filepath="components/examples/markdown-renderer.tsx"
+
+```
+
+The important part is the `require("@/plugins/remarkCodeImport").default,` which will import the plugin we created earlier.
+
+The use the new component `MarkdownRenderer` in your MDX file.
+
+```tsx
+export default function Page({ params }: PostPageProps) {
+  const post: PostMeta = getPostBySlug(params.slug);
+
+  return (
+    <div className="space-y-8">
+      <div className="space-y-2">
+        <H1>{post.title}</H1>
+        <P>{post.date}</P>
+      </div>
+      {/* Render the MDX content */}
+      <div className="space-y-4">
+        <MarkdownRenderer content={post.content} />
+      </div>
+    </div>
+  );
+```
+
+In your `.mdx` files, you can now import files like so:
+
+```markdown filepath="components/examples/markdown-import-file.txt"
+
+```
+
+This will import the code for any file in your project and render it as a code block in your MDX file.

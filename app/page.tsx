@@ -24,10 +24,13 @@ export default function BlogPage() {
           I&apos;m a{" "}
           <span className="font-bold text-white">frontend developer</span>,{" "}
           <span className="font-bold">ui &amp; ux designer</span>. I currently
-          work at <span className="font-bold">Mystic.ai</span>. This site will
-          act as a sort of portfolio, but mostly a scratch-pad for UX and UI
-          ideas, and what I think are best practices. Technologies usually are{" "}
-          <Bold>React</Bold>, <Bold>TypeScript</Bold>, and{" "}
+          work at <span className="font-bold">Mystic.ai</span>. I use web
+          frameworks like <Bold>React.js</Bold> and <Bold>Vue.js</Bold>, to
+          allow me to express user interfaces quickly so I can focus on the user
+          experience.
+        </P>
+        <P className="text-gray-200">
+          I&apos;m also a big advocate for <Bold>TypeScript</Bold>, and{" "}
           <Bold>TailwindCSS</Bold>.
         </P>
       </section>

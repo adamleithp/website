@@ -7,15 +7,15 @@ import { cn } from "@/lib/utils";
 import { Code2Icon, Linkedin } from "lucide-react";
 import Link from "next/link";
 import { NavLink } from "@/components/sections/nav-link";
+import { META_DATA_DEFAULTS, VIEWPORT_DEFAULTS } from "@/lib/seo";
+
+export const metadata: Metadata = META_DATA_DEFAULTS;
+export const viewport = VIEWPORT_DEFAULTS;
 
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
 });
-export const metadata: Metadata = {
-  title: "Adam Leith",
-  description: "The personal website of Adam Leith",
-};
 
 export default function RootLayout({
   children,
