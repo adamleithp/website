@@ -8,6 +8,7 @@ import { Code2Icon, Linkedin } from "lucide-react";
 import Link from "next/link";
 import { NavLink } from "@/components/sections/nav-link";
 import { META_DATA_DEFAULTS, VIEWPORT_DEFAULTS } from "@/lib/seo";
+import { CSPostHogProvider } from "./providers";
 
 export const metadata: Metadata = META_DATA_DEFAULTS;
 export const viewport = VIEWPORT_DEFAULTS;
@@ -24,47 +25,49 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body
-        className={cn(
-          "min-h-screen bg-black font-sans antialiased",
-          fontSans.variable
-        )}
-      >
-        <header className="container py-4 text-white ">
-          <nav className="flex justify-between -mx-3">
-            <ul className="flex gap-1">
-              <li>
-                <NavLink href="/">home</NavLink>
-              </li>
-              <li>
-                <NavLink href="/blog">blog</NavLink>
-              </li>
-            </ul>
-            <ul className="flex gap-1">
-              <li>
-                <Button asChild variant={"ghost"} size="icon-sm">
-                  <Link href="https://github.com/adamleithp" target="_blank">
-                    <Code2Icon size={16} strokeWidth={"1"} />
-                  </Link>
-                </Button>
-              </li>
-              <li>
-                <Button asChild variant={"ghost"} size="icon-sm">
-                  <Link
-                    href="https://www.linkedin.com/in/adamleithp/"
-                    target="_blank"
-                  >
-                    <Linkedin size={16} strokeWidth={"1"} />
-                  </Link>
-                </Button>
-              </li>
-            </ul>
-          </nav>
-        </header>
-        <Separator className="-mx-4" />
+      <CSPostHogProvider>
+        <body
+          className={cn(
+            "min-h-screen bg-black font-sans antialiased",
+            fontSans.variable
+          )}
+        >
+          <header className="container py-4 text-white ">
+            <nav className="flex justify-between -mx-3">
+              <ul className="flex gap-1">
+                <li>
+                  <NavLink href="/">home</NavLink>
+                </li>
+                <li>
+                  <NavLink href="/blog">blog</NavLink>
+                </li>
+              </ul>
+              <ul className="flex gap-1">
+                <li>
+                  <Button asChild variant={"ghost"} size="icon-sm">
+                    <Link href="https://github.com/adamleithp" target="_blank">
+                      <Code2Icon size={16} strokeWidth={"1"} />
+                    </Link>
+                  </Button>
+                </li>
+                <li>
+                  <Button asChild variant={"ghost"} size="icon-sm">
+                    <Link
+                      href="https://www.linkedin.com/in/adamleithp/"
+                      target="_blank"
+                    >
+                      <Linkedin size={16} strokeWidth={"1"} />
+                    </Link>
+                  </Button>
+                </li>
+              </ul>
+            </nav>
+          </header>
+          <Separator className="-mx-4" />
 
-        <main>{children}</main>
-      </body>
+          <main>{children}</main>
+        </body>
+      </CSPostHogProvider>
     </html>
   );
 }
