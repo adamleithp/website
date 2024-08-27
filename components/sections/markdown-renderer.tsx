@@ -2,7 +2,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypePrism from "rehype-prism-plus";
 import remarkGfm from "remark-gfm";
 import { mdxComponents } from "./markdown-components";
-import FileCodeBlock from "../ui/file-code-block";
+import FileCodeBlock from "@/components/ui/file-code-block";
 import { ElementShowcase } from "./element-showcase";
 import { InputPassword } from "../examples/input-password";
 import { TextSkeleton } from "../examples/text-skeleton";

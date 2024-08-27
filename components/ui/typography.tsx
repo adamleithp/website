@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import React, { PropsWithChildren } from "react";
 import { Separator } from "./separator";
+import { ArrowUpRight } from "lucide-react";
 
 interface Props extends PropsWithChildren {
   className?: string;
@@ -109,8 +110,18 @@ export function Pre({ className, ...props }: Props) {
 export function Bold({ className, ...props }: Props) {
   return <strong className={cn("font-semibold", className)} {...props} />;
 }
-export function Link({ className, ...props }: Props) {
+
+export function Link({ className, children, ...props }: Props) {
   return (
-    <a className={cn("text-blue-500 hover:underline", className)} {...props} />
+    <a
+      className={cn(
+        "text-blue-500 hover:underline inline-flex gap-[2px] items-center",
+        className
+      )}
+      {...props}
+      target="_blank"
+    >
+      {children} <ArrowUpRight size={16} strokeWidth={1} />
+    </a>
   );
 }

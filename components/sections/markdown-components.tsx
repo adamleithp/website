@@ -13,7 +13,7 @@ import {
   Pre,
 } from "@/components/ui/typography";
 import { MDXComponents } from "mdx/types";
-import { Separator } from "../ui/separator";
+import { Separator } from "@/components/ui/separator";
 
 export const MarkdownComponents = {
   h1: H1,

@@ -1,4 +1,5 @@
 import { BlogPostItem } from "@/components/sections/blog-post-item";
+import { BlogPostList } from "@/components/sections/blog-post-list";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Bold, H1, H2, H3, P } from "@/components/ui/typography";
@@ -39,13 +40,7 @@ export default function BlogPage() {
 
       <section className="container text-white py-32 space-y-8">
         <H2 className="font-extrabold sr-only">Blog posts</H2>
-        <ul className="space-y-8">
-          {posts.map((post) => (
-            <li key={post.slug}>
-              <BlogPostItem post={post} />
-            </li>
-          ))}
-        </ul>
+        <BlogPostList posts={posts} />
       </section>
     </>
   );

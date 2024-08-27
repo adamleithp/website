@@ -15,21 +15,23 @@ export interface PostMeta {
 export function getAllPosts(): PostMeta[] {
   const fileNames = fs.readdirSync(postsDirectory);
 
-  return fileNames.map((fileName) => {
-    const slug = fileName.replace(/\.mdx$/, "");
-    const fullPath = path.join(postsDirectory, fileName);
-    const fileContents = fs.readFileSync(fullPath, "utf8");
+  return fileNames
+    .map((fileName) => {
+      const slug = fileName.replace(/\.mdx$/, "");
+      const fullPath = path.join(postsDirectory, fileName);
+      const fileContents = fs.readFileSync(fullPath, "utf8");
 
-    const { data, content } = matter(fileContents);
+      const { data, content } = matter(fileContents);
 
-    return {
-      slug,
-      title: data.title,
-      date: data.date,
-      tags: data.tags,
-      content,
-    } as PostMeta;
-  });
+      return {
+        slug,
+        title: data.title,
+        date: data.date,
+        tags: data.tags,
+        content,
+      } as PostMeta;
+    })
+    .sort((a, b) => parseInt(b.date) - parseInt(a.date));
 }
 
 export function getPostBySlug(slug: string): PostMeta {

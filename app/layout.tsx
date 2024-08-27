@@ -63,7 +63,7 @@ export default function RootLayout({
               </ul>
             </nav>
           </header>
-          <Separator className="-mx-4" />
+          <Separator />
 
           <main>{children}</main>
         </body>

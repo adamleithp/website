@@ -1,5 +1,6 @@
 // app/blog/page.tsx
 import { BlogPostItem } from "@/components/sections/blog-post-item";
+import { BlogPostList } from "@/components/sections/blog-post-list";
 import { H1 } from "@/components/ui/typography";
 import { PostMeta, getAllPosts } from "@/lib/posts";
 
@@ -9,13 +10,7 @@ export default function BlogPage() {
   return (
     <div className="space-y-8">
       <H1>Blog</H1>
-      <ul className="space-y-8">
-        {posts.map((post) => (
-          <li key={post.slug}>
-            <BlogPostItem post={post} />
-          </li>
-        ))}
-      </ul>
+      <BlogPostList posts={posts} />
     </div>
   );
 }
