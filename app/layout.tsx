@@ -9,6 +9,8 @@ import Link from "next/link";
 import { NavLink } from "@/components/sections/nav-link";
 import { META_DATA_DEFAULTS, VIEWPORT_DEFAULTS } from "@/lib/seo";
 import { CSPostHogProvider } from "./providers";
+import { Suspense } from "react";
+import { AnalyticsPageView } from "./tracking";
 
 export const metadata: Metadata = META_DATA_DEFAULTS;
 export const viewport = VIEWPORT_DEFAULTS;
@@ -32,6 +34,10 @@ export default function RootLayout({
             fontSans.variable
           )}
         >
+          <Suspense>
+            <AnalyticsPageView />
+          </Suspense>
+
           <header className="container py-4 text-white ">
             <nav className="flex justify-between -mx-3">
               <ul className="flex gap-1">
