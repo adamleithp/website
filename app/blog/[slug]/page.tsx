@@ -5,6 +5,8 @@ import { BlogPostTags } from "@/components/sections/blog-post-tags";
 import { MarkdownRenderer } from "@/components/sections/markdown-renderer";
 import { H1, P } from "@/components/ui/typography";
 import { PostMeta, getAllPosts, getPostBySlug } from "@/lib/posts";
+import { META_DATA_DEFAULTS, siteConfig } from "@/lib/seo";
+import { Metadata } from "next";
 
 interface PostPageProps {
   params: {
@@ -33,4 +35,14 @@ export async function generateStaticParams() {
   return posts.map((post) => ({
     slug: post.slug,
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: any): Promise<Metadata | undefined> {
+  const post = getPostBySlug(params.slug);
+  return {
+    title: `${post.title} | ${siteConfig.name}`,
+    description: post.description,
+  };
 }

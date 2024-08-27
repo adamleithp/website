@@ -6,6 +6,7 @@ const postsDirectory = path.join(process.cwd(), "content");
 
 export interface PostMeta {
   title: string;
+  description: string;
   date: string;
   slug: string;
   content: string;
@@ -26,6 +27,7 @@ export function getAllPosts(): PostMeta[] {
       return {
         slug,
         title: data.title,
+        description: data.description,
         date: data.date,
         tags: data.tags,
         content,
