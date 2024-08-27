@@ -22,11 +22,17 @@ export const TextSkeletonExample = () => {
         </TextSkeleton>
         <h3 className="text-base font-bold">H3 header</h3>
       </div>
-      <div className="flex gap-4">
+      <div className="grid grid-cols-2 gap-4">
         <TextSkeleton>
-          <p className="text-sm">Paragraph</p>
+          <p className="text-sm">
+            Some really long paragraphs here about nothing in particular, but
+            maybe we can talk about goats? goats have strange eyes.
+          </p>
         </TextSkeleton>
-        <p className="text-sm">Paragraph</p>
+        <p className="text-sm">
+          Some really long paragraphs here about nothing in particular, but
+          maybe we can talk about goats? goats have strange eyes.
+        </p>
       </div>
     </div>
   );
