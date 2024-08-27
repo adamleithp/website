@@ -76,4 +76,5 @@ export const VIEWPORT_DEFAULTS: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
+  themeColor: "#000000",
 };
