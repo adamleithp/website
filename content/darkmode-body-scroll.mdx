@@ -56,3 +56,19 @@ main:before {
 ```
 
 This adds a pseudo-element which will sit behind our element, full width and offset above the top edge!
+
+---
+
+Also, for iOS, don't forget the `theme-color` meta tag, which will change the color of the top bar in Safari when scrolling.
+
+```html
+<meta name="theme-color" content="#000000" />
+```
+
+Acheived with the following viewport configuration in `nextjs`:
+
+```tsx
+export const viewport: Viewport = {
+  themeColor: "black",
+};
+```
