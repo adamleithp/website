@@ -1,0 +1,156 @@
+---
+title: "Accessible pricing cards"
+description: "Create an accessible pricing card using React, Typescript, React Hook Form, and Radix UI."
+date: "1724848941"
+tags:
+  [
+    "accessibility",
+    "react",
+    "typescript",
+    "react-hook-form",
+    "radix-ui",
+    "radio-group",
+  ]
+published: true
+---
+
+Pricing cards are a common component on websites. They are used to display different pricing options for a product or service. In this article, we will create an accessible pricing card using React, Typescript, [React Hook Form, (RHF)](https://github.com/react-hook-form/react-hook-form) and [Radix UI](https://www.radix-ui.com/primitives/docs/components/radio-group).
+
+## Setup
+
+Install dependencies:
+
+```bash
+npm install @radix-ui/react-radio-group
+```
+
+## Create custom radio-group and radio group item component
+
+We want to keep these components separate from the pricing card component. This will make it easier to reuse them in other components.
+
+> Create new file `radio-group.tsx` somewhere in your components folder.
+
+```tsx filepath="components/examples/pricing-form/radio-group.tsx"
+
+```
+
+> Create new file `radio-group-item.tsx` somewhere in your components folder.
+
+```tsx filepath="components/examples/pricing-form/radio-group-item.tsx"
+
+```
+
+Now that we have our custom Radio Group components, we can create our form and pricing card components.
+
+## Create pricing form component
+
+Firstly, let's set up our mock data.
+
+> Create a new `.ts` file somewhere:
+
+```tsx filepath="components/examples/pricing-form/pricing-data.ts"
+
+```
+
+Then, let's build out the DOM elements of our form, then add in the functionality after.
+
+> Create new file `pricing-form.tsx` somewhere in your components folder.
+
+```tsx filepath="components/examples/pricing-form/pricing-form-just-dom.tsx"
+
+```
+
+Here's what it looks like, without any functionality or card styles:
+
+<ElementShowcase>
+  <PricingFormJustDom />
+</ElementShowcase>
+
+Working great, but not so much on the looks.
+
+> Notice the default functionality of using the arrow keys to navigate the choices,
+> this is, among other things, what makes this component accessible.
+
+What we really want is a card-like design for our pricing options, and to remove the radio button indicator.
+
+The great thing here, as long as we have this `RadioGroup` and `RadioGroupItem` components, we can style them however we want.
+
+Back in our `pricing-form.tsx` file, start building out the card design.
+
+```tsx filepath="components/examples/pricing-form/pricing-form-just-dom-and-card.tsx"
+
+```
+
+<ElementShowcase>
+  <PricingFormJustDomWithCard />
+</ElementShowcase>
+
+Lovely, but we don't have an `active` state for the card, nor any way to manage the radio groups values.
+
+## Final form with React Hook Form
+
+To enable our `active` state in our card, we're going to add `react-hook-form`, `yup` & `@hookform/resolvers` to our project.
+
+```bash
+npm install react-hook-form yup @hookform/resolvers
+```
+
+```tsx filepath="components/examples/pricing-form/pricing-form-just-dom-and-card-rhf.tsx"
+
+```
+
+And some CSS to make it look a bit nicer:
+
+````css
+/* Focus styles */
+.focus-element {
+  @apply ring-offset-white
+    transition-colors
+    focus-within:outline-none
+    focus-within:ring-2
+    focus-within:ring-gray-950
+    focus-within:ring-offset-2
+    dark:ring-offset-gray-950
+    dark:focus-within:ring-gray-300;
+}
+
+/* Visually hide something from document flow, but keep it accessible to screen readers: */
+```css .visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap; /* 1 */
+}
+
+.visually-hidden.focusable:active,
+.visually-hidden.focusable:focus {
+  clip: auto;
+  clip-path: none;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto;
+  white-space: inherit;
+}
+````
+
+<ElementShowcase>
+  <PricingFormJustDomWithCardWithRHF />
+</ElementShowcase>
+
+## Conclusion
+
+In this article, we created an accessible pricing card using React, Typescript, React Hook Form, and Radix UI.
+We also created custom radio group components to make the pricing card more accessible.
+We used React Hook Form to manage the form state and validation.
+
+Radix UI provides a set of primitives that make it easy to create accessible components.
+
+This approach makes it easy to create accessible pricing cards (or any other radio-select-only-one-option component) that are easy to use and understand.

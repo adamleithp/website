@@ -11,12 +11,21 @@ export interface PostMeta {
   slug: string;
   content: string;
   tags: string[];
+  published?: boolean;
 }
 
 export function getAllPosts(): PostMeta[] {
   const fileNames = fs.readdirSync(postsDirectory);
 
-  return fileNames
+  // only published
+  const publishedFiles = fileNames.filter((fileName) => {
+    const fullPath = path.join(postsDirectory, fileName);
+    const fileContents = fs.readFileSync(fullPath, "utf8");
+    const { data } = matter(fileContents);
+    return data.published === true;
+  }, []);
+
+  return publishedFiles
     .map((fileName) => {
       const slug = fileName.replace(/\.mdx$/, "");
       const fullPath = path.join(postsDirectory, fileName);
