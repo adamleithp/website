@@ -32,7 +32,7 @@ export function PricingForm() {
     resolver: yupResolver(schema),
     defaultValues: {
       // Set the default value to the first option
-      choice: "AMATEUR",
+      choice: "BEGINNER",
     },
   });
 
