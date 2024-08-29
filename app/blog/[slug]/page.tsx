@@ -1,11 +1,8 @@
 // app/blog/[slug]/page.tsx
-import { BlogPostDate } from "@/components/sections/blog-post-date";
 import { BlogPostHeader } from "@/components/sections/blog-post-header";
-import { BlogPostTags } from "@/components/sections/blog-post-tags";
 import { MarkdownRenderer } from "@/components/sections/markdown-renderer";
-import { H1, P } from "@/components/ui/typography";
 import { PostMeta, getAllPosts, getPostBySlug } from "@/lib/posts";
-import { META_DATA_DEFAULTS, siteConfig } from "@/lib/seo";
+import { siteConfig } from "@/lib/seo";
 import { Metadata } from "next";
 
 interface PostPageProps {

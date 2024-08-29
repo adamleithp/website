@@ -2,6 +2,8 @@ import { OpenGraphLayout } from "@/components/sections/opengraph-layout";
 import { OpenGraphSize, boldFont, regularFont } from "@/lib/opengraph";
 import { ImageResponse } from "next/og";
 
+export const runtime = "edge";
+
 export default async function OpenGraphImage() {
   const [regularFontData, boldFontData] = await Promise.all([
     regularFont,
