@@ -1,0 +1,90 @@
+---
+title: "Tailwind merge limitations and the lost classes!"
+description: "How to use use tailwind-merge and it's mergeConfigs() for when creating custom classes in Tailwind CSS without losing classes."
+date: "1724910546"
+tags: ["tailwind", "tailwind-merge", "css"]
+published: true
+---
+
+Tailwind CSS is a utility-first CSS framework that allows you to build custom designs without writing any CSS.
+When creating custom classes in Tailwind CSS, you may run into issues where some classes are lost when merging utility classes.
+This is because Tailwind CSS has a set of default class groups that are used to merge utility classes.
+
+For example, if you have a custom class that starts with `text-`, it will be removed when merging utility classes.
+
+Tailwind-merge doesn't know that your custom `text-biggest` class is a text class, so it will
+remove it when merging utility classes when a similar `text-xs` or `text-bg-red-500` is present.
+
+This is a [known limitation](https://github.com/dcastil/tailwind-merge/blob/v2.3.0/docs/limitations.md) of `tailwind-merge`, but you can work around it by extending the `twMerge` function to include your custom class groups.
+
+In this article, we will look at how to merge utility classes when create custom classes in Tailwind CSS with tailwind-merge and mergeConfigs().
+
+## Adding custom classes to Tailwind CSS
+
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    // ...
+  ],
+  theme: {
+    fontSize: {
+      smallest: [".625rem", { lineHeight: ".9375rem" }],
+      biggest: ["4.5rem", { lineHeight: "5.625rem" }],
+    },
+  },
+};
+```
+
+### Before
+
+Normal `twMerge` behaviour with custom utilities and it's output:
+
+```tsx
+twMerge("font-bold text-gray-800 text-biggest") => "font-bold text-biggest"
+```
+
+### After
+
+Our new `twMerge` function with custom class groups:
+
+```tsx
+twMerge("font-bold text-gray-800 text-biggest") => "font-bold text-gray-800 text-biggest"
+```
+
+> Create a new file `classes.helpers.ts` in your project.
+
+```ts
+import {
+  createTailwindMerge,
+  getDefaultConfig,
+  mergeConfigs,
+} from "tailwind-merge";
+
+// Extends twMerge to allow for custom class groups
+export const twMerge = createTailwindMerge(() =>
+  mergeConfigs(getDefaultConfig(), {
+    classGroups: {
+      text: [
+        {
+          text: ["smallest", "biggest"],
+        },
+      ],
+    },
+  })
+);
+```
+
+Now instead of importing `twMerge` from `tailwind-merge`, you can import it from your `classes.helpers.ts` file.
+
+```tsx
+import { twMerge } from "./classes.helpers";
+
+export function MyComponent() {
+  return (
+    <div className={twMerge("font-bold text-gray-800 text-biggest")}>
+      Hello world
+    </div>
+  );
+}
+```
