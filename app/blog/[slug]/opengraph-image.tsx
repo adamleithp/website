@@ -5,12 +5,18 @@ import fs from "fs";
 import { ImageResponse } from "next/og";
 import path from "path";
 
+const isProd = process.env.NODE_ENV === "production";
+
 const regularFontPath = path.join(
   process.cwd(),
-  "public",
+  isProd ? "" : "public",
   "Inter_28pt-Regular.ttf"
 );
-const boldFontPath = path.join(process.cwd(), "public", "Inter_28pt-Bold.ttf");
+const boldFontPath = path.join(
+  process.cwd(),
+  isProd ? "" : "public",
+  "Inter_28pt-Bold.ttf"
+);
 
 const regularFont = fs.promises.readFile(regularFontPath);
 const boldFont = fs.promises.readFile(boldFontPath);
