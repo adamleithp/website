@@ -3,7 +3,7 @@ import { OpenGraphSize, boldFont, regularFont } from "@/lib/opengraph";
 import { ImageResponse } from "next/og";
 
 export const config = {
-  runtime: "experimental-edge",
+  runtime: "nodejs",
 };
 
 export default async function OpenGraphImage() {
