@@ -4,6 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Bold, H1, H2, H3, P } from "@/components/ui/typography";
 import { PostMeta, getAllPosts } from "@/lib/posts";
+import { siteConfig } from "@/lib/seo";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -44,4 +46,30 @@ export default function BlogPage() {
       </section>
     </>
   );
+}
+
+export async function generateMetadata({}: any): Promise<Metadata | undefined> {
+  return {
+    title: "Adam Leith P",
+    description: `Blogging about web development, design, and more.`,
+    openGraph: {
+      title: "Adam Leith P",
+      description: `Blogging about web development, design, and more.`,
+      type: "website",
+      url: `${siteConfig.url}`,
+      images: [
+        {
+          url: `${siteConfig.url}/api/og?title=Adam Leith P&description=Blogging about web development, design, and more.&tags=web,development,design`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Adam Leith P",
+      description: `Blogging about web development, design, and more.`,
+      images: [
+        `${siteConfig.url}/api/og?title=Adam Leith P&description=Blogging about web development, design, and more.&tags=web,development,design`,
+      ],
+    },
+  };
 }

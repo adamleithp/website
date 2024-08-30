@@ -41,5 +41,28 @@ export async function generateMetadata({
   return {
     title: `${post.title} | ${siteConfig.name}`,
     description: post.description,
+    openGraph: {
+      title: `${post.title} | ${siteConfig.name}`,
+      description: `${post.description}`,
+      type: "article",
+      url: `${siteConfig.url}/blog/${params.slug}`,
+      images: [
+        {
+          url: `${siteConfig.url}/api/og?title=${post.title}&description=${
+            post.description
+          }&tags=${post.tags.join(",")}`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${post.title} | ${siteConfig.name}`,
+      description: `${post.description}`,
+      images: [
+        `${siteConfig.url}/api/og?title=${post.title}&description=${
+          post.description
+        }&tags=${post.tags.join(",")}`,
+      ],
+    },
   };
 }
