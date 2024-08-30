@@ -18,9 +18,6 @@ export async function GET(request: Request) {
 
   try {
     const { searchParams } = new URL(request.url);
-
-    console.log("searchParams =======", searchParams);
-
     const hasTitle = searchParams.has("title");
     const hasDescription = searchParams.has("description");
     const hasTags = searchParams.has("tags");
@@ -31,8 +28,6 @@ export async function GET(request: Request) {
       ? searchParams.get("description")?.slice(0, 200)
       : "Default description";
     const tags = hasTags ? searchParams.getAll("tags") : [];
-
-    console.log("tags =======", tags);
 
     return new ImageResponse(
       (
