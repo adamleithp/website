@@ -3,8 +3,8 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 export const OpenGraphSize = {
-  width: 1337,
-  height: 700,
+  width: 1200,
+  height: 630,
 };
 export const regularFont = fs.promises.readFile(
   path.join(

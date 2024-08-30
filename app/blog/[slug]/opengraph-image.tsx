@@ -1,25 +1,26 @@
 import { OpenGraphLayout } from "@/components/sections/opengraph-layout";
 import { OpenGraphSize } from "@/lib/opengraph";
 import { getPostBySlug } from "@/lib/posts";
-import fs from "fs";
 import { ImageResponse } from "next/og";
+import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 
-const isProd = process.env.NODE_ENV === "production";
-
-const regularFontPath = path.join(
-  process.cwd(),
-  isProd ? "" : "public",
-  "Inter_28pt-Regular.ttf"
-);
-const boldFontPath = path.join(
-  process.cwd(),
-  isProd ? "" : "public",
-  "Inter_28pt-Bold.ttf"
+const regularFont = fs.promises.readFile(
+  path.join(
+    fileURLToPath(import.meta.url),
+    `../../../../public/Inter_28pt-Regular.ttf`
+  )
 );
 
-const regularFont = fs.promises.readFile(regularFontPath);
-const boldFont = fs.promises.readFile(boldFontPath);
+const boldFont = fs.promises.readFile(
+  path.join(
+    fileURLToPath(import.meta.url),
+    `../../../../public/Inter_28pt-Bold.ttf`
+  )
+);
+
+export const contentType = "image/png";
 
 export default async function Image({ params }: { params: { slug: string } }) {
   const [regularFontData, boldFontData] = await Promise.all([
