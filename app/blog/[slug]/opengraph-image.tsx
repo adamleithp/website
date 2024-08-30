@@ -1,10 +1,16 @@
 import { OpenGraphLayout } from "@/components/sections/opengraph-layout";
-import { OpenGraphSize } from "@/lib/opengraph";
 import { getPostBySlug } from "@/lib/posts";
-import { ImageResponse } from "next/og";
 import fs from "fs";
+import { ImageResponse } from "next/og";
 import path from "path";
 import { fileURLToPath } from "url";
+
+// export const runtime = "edge";
+
+export const size = {
+  width: 1337,
+  height: 700,
+};
 
 const regularFont = fs.promises.readFile(
   path.join(
@@ -22,7 +28,11 @@ const boldFont = fs.promises.readFile(
 
 export const contentType = "image/png";
 
-export default async function Image({ params }: { params: { slug: string } }) {
+export default async function OpenGraphImage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const [regularFontData, boldFontData] = await Promise.all([
     regularFont,
     boldFont,
@@ -83,7 +93,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
       </OpenGraphLayout>
     ),
     {
-      ...OpenGraphSize,
+      ...size,
       fonts: [
         {
           name: "Inter",
