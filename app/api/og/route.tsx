@@ -1,7 +1,7 @@
 import { OpenGraphLayout } from "@/components/sections/opengraph-layout";
 import { ImageResponse } from "next/og";
 
-export const sizes = {
+const sizes = {
   width: 1200,
   height: 630,
 };
