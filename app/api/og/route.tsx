@@ -1,11 +1,6 @@
 import { OpenGraphLayout } from "@/components/sections/opengraph-layout";
 import { ImageResponse } from "next/og";
 
-const sizes = {
-  width: 1200,
-  height: 630,
-};
-
 export const runtime = "edge";
 
 export async function GET(request: Request) {
