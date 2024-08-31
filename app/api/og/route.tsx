@@ -10,10 +10,13 @@ export const runtime = "edge";
 
 export async function GET(request: Request) {
   const regularFont = fetch(
-    new URL("../../../public/interregular.ttf", import.meta.url)
+    new URL(
+      "../../../public/fonts/subset-Inter28pt-Regular.ttf",
+      import.meta.url
+    )
   ).then((res) => res.arrayBuffer());
   const boldFont = fetch(
-    new URL("../../../public/interbold.ttf", import.meta.url)
+    new URL("../../../public/fonts/subset-Inter28pt-Bold.ttf", import.meta.url)
   ).then((res) => res.arrayBuffer());
 
   try {
