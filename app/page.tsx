@@ -1,13 +1,10 @@
-import { BlogPostItem } from "@/components/sections/blog-post-item";
 import { BlogPostList } from "@/components/sections/blog-post-list";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Bold, H1, H2, H3, P } from "@/components/ui/typography";
+import { Bold, H1, H2, P } from "@/components/ui/typography";
 import { PostMeta, getAllPosts } from "@/lib/posts";
 import { siteConfig } from "@/lib/seo";
 import { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 
 export default function BlogPage() {
   const posts: PostMeta[] = getAllPosts();
@@ -50,7 +47,7 @@ export default function BlogPage() {
 
 export async function generateMetadata({}: any): Promise<Metadata | undefined> {
   return {
-    title: "Adam Leith P",
+    title: "Adam Leith P | Blog",
     description: `Blogging about web development, design, and more.`,
     openGraph: {
       title: "Adam Leith P",
