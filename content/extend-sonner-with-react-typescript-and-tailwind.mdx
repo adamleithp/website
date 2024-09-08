@@ -1,0 +1,189 @@
+---
+title: "Extend Sonner for more expressive App notifications with React, Typescript, and Tailwind"
+description: "Create an accessible notification system for your app built on top of Sonner."
+date: "1725775520"
+tags:
+  [
+    "sonner",
+    "notifications",
+    "accessibility",
+    "react",
+    "typescript",
+    "darkmode",
+    "tailwind",
+  ]
+published: true
+---
+
+In this article, we will create a custom notification system for your app using React, Typescript, and [Sonner](https://sonner.emilkowal.ski/) - a library for creating accessible notifications.
+
+Default sonner notifications are great, but they are not customizable. We will create a custom notification system that allows you to customize the notifications to fit your app's design.
+
+## Default Setup
+
+First, let's install Sonner.
+
+```tsx
+npm install sonner
+```
+
+Sonner provides a `Toaster` component that you can use to display notifications. You can use the `toast` method to create a notification.
+
+```tsx
+import { Toaster, toast } from "sonner";
+
+// ...
+
+function App() {
+  return (
+    <div>
+      <Toaster />
+      <button onClick={() => toast("My first toast")}>Give me a toast</button>
+    </div>
+  );
+}
+```
+
+## Custom Setup
+
+We'll use the `toast.custom()` method to create a custom notification. This method takes a function that returns a React element. This allows us to create a custom notification with any design we want.
+
+```tsx
+import { Toaster, toast } from "sonner";
+import { Card } from "@/components/ui/card";
+
+// ...
+
+function App() {
+  return (
+    <div>
+      <Toaster />
+      <button
+        onClick={() =>
+          toast.custom(() => (
+            <Card className="w-full p-4 flex flex-col gap-2">
+              My custom toast
+            </Card>
+          ))
+        }
+      >
+        Give me a custom toast
+      </button>
+    </div>
+  );
+}
+```
+
+Easy, but we can do better. Let's wrap the toast api in something like `notification`, which let's us take full control of the design.
+
+> components/ui/notification.tsx
+
+```tsx
+import { toast as toastRoot, ToasterProps } from "sonner";
+import { Card } from "@/components/ui/card";
+
+// Extend the ToasterProps interface,
+// to include a title and description
+interface Props extends ToasterProps {
+  title: string;
+  description: string;
+}
+
+const notification = {
+  default: ({ title, description, ...props }: Props) => {
+    toastRoot.custom(
+      (t) => (
+        <Card className="w-full p-4 flex flex-col gap-2 border-green-600">
+          <h2 className="text-sm">{props.title}</h2>
+          <p className="text-xs">{description}</p>
+        </Card>
+      ),
+      {
+        // all options available can be passed here
+        // https://sonner.emilkowal.ski/toast#api-reference
+        ...props,
+      }
+    );
+  },
+  // success: ({ title, description, ...props }: Props) => {
+  // ...
+};
+```
+
+Now we can use our custom notification system like this:
+
+```tsx
+import { notification } from "@/components/ui/notification";
+
+function App() {
+  return (
+    <div>
+      <Sonner />
+      <button
+        onClick={() =>
+          notification.default({
+            title: "My custom toast",
+            description: "This is a custom toast",
+          })
+        }
+      >
+        Give me a custom toast
+      </button>
+    </div>
+  );
+}
+```
+
+Extending this notification system is easy. You can add more variants like `success`, `warning`, `error`, etc. You can also add more options to the `Props` interface to customize the notifications further.
+
+## Theming
+
+To add themeing support, you can use the `useTheme` hook from your favorite theme provider.
+This will allow you to change the design of the notifications based on the current theme.
+
+```tsx
+// file name: components/ui/notification.tsx
+import { Toaster as Sonner, toast as toastRoot, ToasterProps } from "sonner";
+import { Card } from "@/components/ui/card";
+import { useTheme } from "next-themes";
+
+type ToasterProps = React.ComponentProps<typeof Sonner>;
+
+const Toaster = ({ ...props }: ToasterProps) => {
+  const { theme = "system" } = useTheme();
+  return <Sonner theme={theme as ToasterProps["theme"]} {...props} />;
+};
+
+//...
+```
+
+And so instead of importing `Sonner` directly, you can import the `Toaster` component from your custom notification component.
+
+```tsx
+import { Toaster } from "@/components/ui/notification";
+
+// ...
+
+function App() {
+  return (
+    <div>
+      <Toaster />
+      <button
+        onClick={() =>
+          notification.default({
+            title: "My custom toast",
+            description: "This is a custom toast",
+          })
+        }
+      >
+        Give me a custom toast
+      </button>
+    </div>
+  );
+}
+```
+
+## Conclusion
+
+Creating a custom notification system with Sonner is easy.
+You can customize the notifications to fit your app's design and add theming support to change the design based on the current theme.
