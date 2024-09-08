@@ -24,16 +24,7 @@ const initialLeftColumn: ItemType[] = [
   { id: 3, name: "Item 3", type: "text" },
 ];
 
-const initialRightColumn: ItemType[] = [
-  { id: 4, name: "Item 4", type: "text" },
-  { id: 5, name: "Item 5", type: "text" },
-  {
-    id: 6,
-    name: "Item 6",
-    type: "input",
-    defaultValue: "Item 6 default value",
-  },
-];
+const initialRightColumn: ItemType[] = [];
 
 const FormBuilder: React.FC = () => {
   const [leftColumn, setLeftColumn] = useState<ItemType[]>(initialLeftColumn);
@@ -80,7 +71,7 @@ const FormBuilder: React.FC = () => {
     else {
       itemToMove = leftColumn.find((i) => i.id === id);
       if (itemToMove) {
-        setLeftColumn((prev) => prev.filter((i) => i.id !== id));
+        // setLeftColumn((prev) => prev.filter((i) => i.id !== id));
         setRightColumn((prev) => {
           const newColumn = [...prev, itemToMove as ItemType]; // Ensure itemToMove is of type ItemType
           return newColumn;
