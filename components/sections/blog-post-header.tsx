@@ -9,7 +9,7 @@ const BlogPostPageView = dynamic(
   () => import("./blog-post-page-view").then((mod) => mod.BlogPostPageView),
   {
     ssr: false,
-    loading: () => <TextSkeleton>1K page views</TextSkeleton>,
+    loading: () => <TextSkeleton>1K</TextSkeleton>,
   }
 );
 
