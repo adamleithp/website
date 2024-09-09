@@ -1,9 +1,11 @@
 // app/blog/[slug]/page.tsx
 import { BlogPostHeader } from "@/components/sections/blog-post-header";
+import { BlogPostPageView } from "@/components/sections/blog-post-page-view";
 import { MarkdownRenderer } from "@/components/sections/markdown-renderer";
 import { PostMeta, getAllPosts, getPostBySlug } from "@/lib/posts";
 import { siteConfig } from "@/lib/seo";
 import { Metadata } from "next";
+import { ReportView } from "./view";
 
 interface PostPageProps {
   params: {
@@ -11,11 +13,14 @@ interface PostPageProps {
   };
 }
 
+export const revalidate = 60;
+
 export default function PostPage({ params }: PostPageProps) {
   const post: PostMeta = getPostBySlug(params.slug);
 
   return (
     <div className="space-y-16">
+      <ReportView slug={params.slug} />
       <BlogPostHeader post={post} variant="page" />
       <div className="space-y-4">
         {/* Render the MDX content */}
