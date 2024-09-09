@@ -9,6 +9,7 @@ import Link from "next/link";
 import { NavLink } from "@/components/sections/nav-link";
 import { META_DATA_DEFAULTS, VIEWPORT_DEFAULTS } from "@/lib/seo";
 import { CSPostHogProvider } from "./providers";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = META_DATA_DEFAULTS;
 export const viewport = VIEWPORT_DEFAULTS;
@@ -66,6 +67,7 @@ export default function RootLayout({
           <Separator />
 
           <main>{children}</main>
+          <Analytics />
         </body>
       </CSPostHogProvider>
     </html>
