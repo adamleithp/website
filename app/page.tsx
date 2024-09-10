@@ -22,19 +22,26 @@ export default function BlogPage() {
           height={200}
           className="rounded-full"
         />
-        <H1 className="text-gray-200">Hi I&apos;m Adam 👋</H1>
+        <H1 className="text-gray-200">Adam Leith</H1>
         <P className="text-gray-200">
-          I&apos;m a{" "}
-          <span className="font-bold text-white">frontend developer</span>,{" "}
-          <span className="font-bold">ui &amp; ux designer</span>. I currently
-          work at <span className="font-bold">Mystic.ai</span>. I use web
-          frameworks like <Bold>React.js</Bold> and <Bold>Vue.js</Bold>, to
-          allow me to express user interfaces quickly so I can focus on the user
-          experience.
+          I&apos;m a <Bold>frontend developer</Bold> and{" "}
+          <Bold>UI/UX designer</Bold>, working at{" "}
+          <Link
+            href="https://www.mystic.ai"
+            target="_blank"
+            className="font-bold text-white underline"
+          >
+            Mystic.ai
+          </Link>
+          . I specialize in building fast, accessible web applications using
+          modern technologies. By focusing on efficient, expressive user
+          interfaces, I ensure that the user experience always comes first.
+          I&apos;m an advocate for <Bold>TypeScript</Bold>, and{" "}
+          <Bold>TailwindCSS</Bold>.
         </P>
         <P className="text-gray-200">
-          I&apos;m also a big advocate for <Bold>TypeScript</Bold>, and{" "}
-          <Bold>TailwindCSS</Bold>.
+          Here&apos;s my blog where I write about web development, design, and
+          more.
         </P>
       </section>
 
