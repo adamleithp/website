@@ -42,6 +42,9 @@ export default function RootLayout({
                 <li>
                   <NavLink href="/blog">blog</NavLink>
                 </li>
+                <li>
+                  <NavLink href="/apps">apps</NavLink>
+                </li>
               </ul>
               <ul className="flex gap-1">
                 <li>
