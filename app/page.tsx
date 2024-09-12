@@ -5,6 +5,7 @@ import { PostMeta, getAllPosts } from "@/lib/posts";
 import { siteConfig } from "@/lib/seo";
 import { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function BlogPage() {
   const posts: PostMeta[] = getAllPosts();

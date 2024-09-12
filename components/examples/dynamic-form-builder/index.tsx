@@ -104,7 +104,12 @@ const defaultFields: DynamicFieldData[] = [
 function DynamicFieldLabel({ field }: { field: DynamicFieldData }) {
   return (
     <Label>
-      {field.label} {!field.optional ? "*" : ""}
+      {field.label}{" "}
+      {!field.optional ? (
+        <span className="text-[10px] text-gray-400">* required</span>
+      ) : (
+        ""
+      )}
     </Label>
   );
 }
