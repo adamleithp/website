@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { H2 } from "@/components/ui/typography";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useEffect, useState } from "react";
 import {
@@ -36,7 +37,8 @@ export interface DynamicFieldData {
     | "dictionary"
     | "boolean"
     | "none"
-    | "array";
+    | "array"
+    | "email";
   fieldName: string;
   fieldDescription?: string;
   defaultValue?: any;
@@ -48,25 +50,25 @@ export interface DynamicFieldData {
   dicts?: DynamicFieldData[];
   // decimalPlaces?: number;
   optional?: boolean;
+  placeholder?: string;
 }
 
+// const templates = [
+//   {
+//     name: "Signup Form",
+//     fields: [
+
+//     ]
+//   }
+// ]
 const defaultFields: DynamicFieldData[] = [
   {
-    id: "1",
-    label: "First Name",
+    id: "email",
+    label: "Email",
     inputType: "text",
-    subType: "string",
-    fieldName: "firstName",
-    defaultValue: "John",
-    optional: false,
-  },
-  {
-    id: "2",
-    label: "Last Name",
-    inputType: "text",
-    subType: "string",
-    fieldName: "lastName",
-    defaultValue: "Doe",
+    subType: "email",
+    fieldName: "email",
+    defaultValue: "",
     optional: false,
   },
   {
@@ -96,14 +98,21 @@ const defaultFields: DynamicFieldData[] = [
     inputType: "checkbox",
     subType: "boolean",
     fieldName: "happy",
-    defaultValue: true,
+    defaultValue: false,
     optional: false,
   },
 ];
 
-function DynamicFieldLabel({ field }: { field: DynamicFieldData }) {
+function DynamicFieldLabel({
+  id,
+  field,
+}: {
+  id?: string;
+  field: DynamicFieldData;
+}) {
+  if (!field.label) return null;
   return (
-    <Label>
+    <Label htmlFor={id}>
       {field.label}{" "}
       {!field.optional ? (
         <span className="text-[10px] text-gray-400">* required</span>
@@ -133,7 +142,7 @@ function DynamicInput({ field }: { field: DynamicFieldData }) {
   ) {
     return (
       <>
-        <DynamicFieldLabel field={field} />
+        <DynamicFieldLabel field={field} id={field.id} />
         <Controller
           control={control}
           name={field.fieldName}
@@ -142,7 +151,7 @@ function DynamicInput({ field }: { field: DynamicFieldData }) {
           }}
           render={({ field: { value, ref, onChange } }) => (
             <Select value={value} onValueChange={onChange}>
-              <SelectTrigger>
+              <SelectTrigger id={field.id}>
                 <SelectValue placeholder={"Please select an option"} />
               </SelectTrigger>
 
@@ -164,12 +173,13 @@ function DynamicInput({ field }: { field: DynamicFieldData }) {
   if (field.inputType === "text") {
     return (
       <>
-        <DynamicFieldLabel field={field} />
+        <DynamicFieldLabel field={field} id={field.id} />
         <Input
           type="text"
           {...register(field.fieldName)}
           placeholder={field.label}
           defaultValue={field.defaultValue}
+          id={field.id}
         />
         <DynamicFieldError field={field} />
       </>
@@ -178,13 +188,14 @@ function DynamicInput({ field }: { field: DynamicFieldData }) {
   if (field.inputType === "number") {
     return (
       <>
-        <DynamicFieldLabel field={field} />
+        <DynamicFieldLabel field={field} id={field.id} />
         <Input
           type="number"
           {...register(field.fieldName)}
           placeholder={field.label}
           defaultValue={field.defaultValue}
           step={field.step}
+          id={field.id}
         />
         <DynamicFieldError field={field} />
       </>
@@ -195,7 +206,6 @@ function DynamicInput({ field }: { field: DynamicFieldData }) {
     return (
       <div className="space-y-2">
         <div className="flex gap-2">
-          <DynamicFieldLabel field={field} />
           <Controller
             control={control}
             name={field.fieldName}
@@ -203,9 +213,14 @@ function DynamicInput({ field }: { field: DynamicFieldData }) {
               required: "This field is required",
             }}
             render={({ field: { value, ref, onChange } }) => (
-              <Checkbox checked={value} onCheckedChange={onChange} />
+              <Checkbox
+                checked={value}
+                onCheckedChange={onChange}
+                id={field.id}
+              />
             )}
           />
+          <DynamicFieldLabel field={field} id={field.id} />
         </div>
         <DynamicFieldError field={field} />
       </div>
@@ -220,6 +235,7 @@ function DynamicInput({ field }: { field: DynamicFieldData }) {
           type="file"
           {...register(field.fieldName)}
           placeholder={field.label}
+          id={field.id}
         />
         <DynamicFieldError field={field} />
       </>
@@ -230,18 +246,6 @@ function DynamicInput({ field }: { field: DynamicFieldData }) {
 }
 
 function DynamicInputList({ fields }: { fields: DynamicFieldData[] }) {
-  const {
-    register,
-    setValue,
-    clearErrors,
-    watch,
-    setError,
-    control,
-    formState,
-  } = useFormContext();
-
-  const { errors } = formState;
-
   return (
     <ul className="space-y-4">
       {fields.map((field, index) => {
@@ -270,16 +274,21 @@ const generateYupSchema = (fields: DynamicFieldData[]): yup.AnyObjectSchema => {
     // Customize schema based on input type and other properties
     switch (field.inputType) {
       case "text":
-        fieldSchema = yup
-          .string()
-          .max(
-            field.max || 255,
-            `${field.label} must be less than ${field.max} characters`
-          )
-          .min(
-            field.min || 0,
-            `${field.label} must be at least ${field.min} characters`
-          );
+        if (field.subType === "email") {
+          fieldSchema = yup.string().email("Invalid email address");
+        } else {
+          fieldSchema = yup
+            .string()
+            .max(
+              field.max || 255,
+              `${field.label} must be less than ${field.max} characters`
+            )
+            .min(
+              field.min || 0,
+              `${field.label} must be at least ${field.min} characters`
+            );
+        }
+
         break;
 
       case "number":
@@ -370,6 +379,7 @@ const FormBuilder: React.FC = () => {
   const [textareaValue, setTextareaValue] = useState(
     JSON.stringify(fields, null, 2)
   );
+  const [output, setOutput] = useState("");
   const yupSchema = generateYupSchema(fields);
   const defaultValues = generateDefaultValues(fields);
 
@@ -406,31 +416,60 @@ const FormBuilder: React.FC = () => {
 
   async function onSubmit(data: Record<string, any>) {
     console.log("submit", data);
+    setOutput(JSON.stringify(data, null, 2));
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4">
-      <Textarea
-        value={textareaValue}
-        onChange={(e) => setTextareaValue(e.target.value)}
-      />
+    <div className="space-y-4">
+      <div className="space-y-0">
+        <H2>Templates</H2>
+        <ul className="flex flex-wrap gap-4">
+          <li>
+            <Button variant={"outline"}>Signup Form</Button>
+          </li>
+          <li>
+            <Button variant={"outline"}>Sign in Form</Button>
+          </li>
+        </ul>
+      </div>
+      <div className="grid grid-cols-2 gap-8">
+        <div className="space-y-0 flex flex-col">
+          <H2>Input</H2>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="p-4">
-        <FormProvider {...formMethods}>
-          <div className="flex flex-col gap-4 sticky bottom-8">
-            <DynamicInputList fields={fields} />
+          <Textarea
+            value={textareaValue}
+            onChange={(e) => setTextareaValue(e.target.value)}
+            className="font-mono h-full"
+            autoHeight
+          />
+        </div>
+        <div className="space-y-0">
+          <H2>Preview</H2>
 
-            <Button
-              variant="default"
-              size="lg"
-              type="submit"
-              disabled={!isValid}
-            >
-              Submit
-            </Button>
-          </div>
-        </FormProvider>
-      </form>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <FormProvider {...formMethods}>
+              <div className="flex flex-col gap-4 sticky bottom-8">
+                <DynamicInputList fields={fields} />
+
+                <Button
+                  variant="default"
+                  size="lg"
+                  type="submit"
+                  disabled={!isValid}
+                >
+                  Submit
+                </Button>
+              </div>
+            </FormProvider>
+          </form>
+        </div>
+        <div></div>
+      </div>
+
+      <div className="space-y-0">
+        <H2>Form output</H2>
+        <pre className="border border-gray-700 p-4 rounded">{output}</pre>
+      </div>
     </div>
   );
 };

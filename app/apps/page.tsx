@@ -23,9 +23,10 @@ export default function BlogPage() {
             <Link href={`/apps/dynamic-form-builder`}>
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <H3 className="block">Dynamic form builder</H3>
+                  <H3 className="block">Dynamic form builder (POC)</H3>
                   <P className="text-gray-300">
-                    Generate highly functional forms
+                    Generate highly functional forms from a JSON API with React
+                    hook form, yup validation.
                   </P>
                 </div>
               </div>
