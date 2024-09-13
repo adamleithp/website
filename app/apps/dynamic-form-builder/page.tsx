@@ -46,9 +46,6 @@ export default function FormBuilderPage() {
             items and validation
           </li>
           <li>
-            <Checkbox disabled /> Element: Input file
-          </li>
-          <li>
             <Checkbox disabled /> Drag and drop
           </li>
           <li>
