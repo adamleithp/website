@@ -421,7 +421,7 @@ const FormBuilder: React.FC = () => {
 
   return (
     <div className="space-y-4">
-      <div className="space-y-0">
+      {/* <div className="space-y-0">
         <H2>Templates</H2>
         <ul className="flex flex-wrap gap-4">
           <li>
@@ -431,7 +431,7 @@ const FormBuilder: React.FC = () => {
             <Button variant={"outline"}>Sign in Form</Button>
           </li>
         </ul>
-      </div>
+      </div> */}
       <div className="grid grid-cols-2 gap-8">
         <div className="space-y-0 flex flex-col">
           <H2>Input</H2>
