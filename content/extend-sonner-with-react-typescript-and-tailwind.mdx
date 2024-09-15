@@ -81,6 +81,7 @@ Easy, but we can do better. Let's wrap the toast api in something like `notifica
 ```tsx
 import { toast as toastRoot, ToasterProps } from "sonner";
 import { Card } from "@/components/ui/card";
+import { XIcon } from "lucide-react";
 
 // Extend the ToasterProps interface,
 // to include a title and description
@@ -93,9 +94,18 @@ const notification = {
   default: ({ title, description, ...props }: Props) => {
     toastRoot.custom(
       (t) => (
-        <Card className="w-full p-4 flex flex-col gap-2 border-green-600">
+        <Card className="w-full p-4 flex flex-col gap-2 border-green-600 relative">
           <h2 className="text-sm">{props.title}</h2>
           <p className="text-xs">{description}</p>
+
+          <Button
+            variant="ghost"
+            size={"icon-sm"}
+            onClick={() => t.dismiss()}
+            className="absolute top-2 right-2"
+          >
+            <XIcon size="12" />
+          </Button>
         </Card>
       ),
       {

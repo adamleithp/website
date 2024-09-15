@@ -13,6 +13,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { H2 } from "@/components/ui/typography";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { RefreshCw } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import {
   Controller,
@@ -321,11 +322,20 @@ const generateYupSchema = (fields: DynamicFieldData[]): yup.AnyObjectSchema => {
         break;
 
       case "checkbox":
-        fieldSchema = yup.boolean();
+        fieldSchema = yup
+          .boolean()
+          .default(false) // Default value should be false unless otherwise specified
+          .transform((value, originalValue) => {
+            // Convert empty string or other falsy values to false
+            return originalValue === "" ? false : value;
+          });
 
-        // if not optional, boolean === true is required
+        // If required, ensure the checkbox is checked (true)
         if (!field.optional) {
-          fieldSchema = fieldSchema.oneOf([true], `Must be checked to proceed`);
+          fieldSchema = fieldSchema.oneOf(
+            [true],
+            `This is not optional, please check the box`
+          );
         }
 
         break;
@@ -380,6 +390,7 @@ const FormBuilder: React.FC = () => {
     JSON.stringify(fields, null, 2)
   );
   const [output, setOutput] = useState("");
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const yupSchema = generateYupSchema(fields);
   const defaultValues = generateDefaultValues(fields);
 
@@ -434,7 +445,7 @@ const FormBuilder: React.FC = () => {
       </div> */}
       <div className="grid grid-cols-2 gap-8">
         <div className="space-y-0 flex flex-col">
-          <H2>Input</H2>
+          <H2 className="!mt-0">Input</H2>
 
           <Textarea
             value={textareaValue}
@@ -444,7 +455,17 @@ const FormBuilder: React.FC = () => {
           />
         </div>
         <div className="space-y-0">
-          <H2>Preview</H2>
+          <div className="flex justify-between">
+            <H2 className="!mt-0">Preview</H2>
+
+            <Button
+              size={"icon-sm"}
+              variant={"outline"}
+              onClick={() => setIsRefreshing(true)}
+            >
+              <RefreshCw size="12" />
+            </Button>
+          </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormProvider {...formMethods}>
