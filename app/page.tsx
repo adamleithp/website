@@ -33,13 +33,34 @@ export default function BlogPage() {
           </Link>
           . I specialize in building fast, accessible web applications using
           modern technologies. By focusing on efficient, expressive user
-          interfaces, I ensure that the user experience always comes first.
-          I&apos;m an advocate for <Bold>TypeScript</Bold>, and{" "}
-          <Bold>TailwindCSS</Bold>.
+          interfaces, I ensure that the user experience always comes first. I
+          write about <Bold>frontend development</Bold>, <Bold>design</Bold> and{" "}
+          <Bold>user experience</Bold>
         </P>
         <P className="text-gray-200">
-          Here&apos;s my blog where I write about web development, design, and
-          more.
+          More stuff from me on{" "}
+          <Link
+            href="https://dribbble.com/adamleithp/shots"
+            target="_blank"
+            className="underline hover:text-[rgb(234,76,137)]"
+          >
+            Dribbble
+          </Link>
+          ,{" "}
+          <Link
+            href="https://www.linkedin.com/in/adamleithp"
+            className="underline hover:text-[#2766BC]"
+          >
+            LinkedIn
+          </Link>
+          , and{" "}
+          <Link
+            href="https://github.com/adamleithp"
+            className="underline hover:text-white"
+          >
+            GitHub
+          </Link>
+          .
         </P>
       </section>
 

@@ -46,25 +46,6 @@ export default function RootLayout({
                   <NavLink href="/apps">apps</NavLink>
                 </li>
               </ul>
-              <ul className="flex gap-1">
-                <li>
-                  <Button asChild variant={"ghost"} size="icon-sm">
-                    <Link href="https://github.com/adamleithp" target="_blank">
-                      <Code2Icon size={16} strokeWidth={"1"} />
-                    </Link>
-                  </Button>
-                </li>
-                <li>
-                  <Button asChild variant={"ghost"} size="icon-sm">
-                    <Link
-                      href="https://www.linkedin.com/in/adamleithp/"
-                      target="_blank"
-                    >
-                      <Linkedin size={16} strokeWidth={"1"} />
-                    </Link>
-                  </Button>
-                </li>
-              </ul>
             </nav>
           </header>
           <Separator />
