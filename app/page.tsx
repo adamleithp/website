@@ -22,8 +22,9 @@ export default function BlogPage() {
         />
         <H1 className="text-gray-200">Adam Leith</H1>
         <P className="text-gray-200">
-          I&apos;m a <Bold>frontend developer</Bold> and{" "}
-          <Bold>UI/UX designer</Bold>, working at{" "}
+          I&apos;m a <Bold>Product engineer</Bold>{" "}
+          <span className="italic">(or frontend engineer, UI/UX designer)</span>
+          , working at{" "}
           <Link
             href="https://www.mystic.ai"
             target="_blank"
