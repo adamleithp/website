@@ -28,7 +28,7 @@ export default function BlogPage() {
           <Link
             href="https://www.mystic.ai"
             target="_blank"
-            className="font-bold text-white underline"
+            className="font-bold text-white underline hover:text-[rgba(104,0,255,1)]"
           >
             Mystic.ai
           </Link>
