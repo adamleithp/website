@@ -22,42 +22,39 @@ export default function BlogPage() {
         />
         <H1 className="text-gray-200">Adam Leith</H1>
         <P className="text-gray-200">
-          I&apos;m a <Bold>Product engineer</Bold>{" "}
-          <span className="italic">(or frontend engineer, UI/UX designer)</span>
-          , working at{" "}
+          I currently work as a UX Platform Engineer at{" "}
           <Link
-            href="https://www.mystic.ai"
+            href="https://www.posthog.com"
             target="_blank"
-            className="font-bold text-white underline hover:text-[rgba(104,0,255,1)]"
+            className="text-[rgba(247,165,1,1)] underline hover:text-[#947b49]"
           >
-            Mystic.ai
+            Posthog
           </Link>
-          . I specialize in building fast, accessible web applications using
-          modern technologies. By focusing on efficient, expressive user
-          interfaces, I ensure that the user experience always comes first. I
-          write about <Bold>frontend development</Bold>, <Bold>design</Bold> and{" "}
-          <Bold>user experience</Bold>
+          . I specialize in building fast & accessible web applications using
+          modern technologies with a high attention to detail in terms of design
+          and UX. I write about <Bold>frontend development</Bold>,{" "}
+          <Bold>design</Bold> and <Bold>user experience</Bold>
         </P>
         <P className="text-gray-200">
           More stuff from me on{" "}
           <Link
             href="https://dribbble.com/adamleithp/shots"
             target="_blank"
-            className="underline hover:text-[rgb(234,76,137)]"
+            className="underline text-[rgb(234,76,137)] hover:text-[rgb(181,65,104)]"
           >
             Dribbble
           </Link>
           ,{" "}
           <Link
             href="https://www.linkedin.com/in/adamleithp"
-            className="underline hover:text-[#2766BC]"
+            className="underline text-[#2766BC] hover:text-[#1c4a8a]"
           >
             LinkedIn
           </Link>
           , and{" "}
           <Link
             href="https://github.com/adamleithp"
-            className="underline hover:text-white"
+            className="underline text-[#f2f2f2] hover:text-[#adadad]"
           >
             GitHub
           </Link>
